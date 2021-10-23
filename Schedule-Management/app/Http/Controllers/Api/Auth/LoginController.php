@@ -29,7 +29,7 @@ class LoginController extends Controller
             if (!$token = JWTAuth::attempt($credentials)){
                 return response()->json(['success'=>false],401);
             }
-            return response()->json(['success'=>true, 'token'=>$token],200);
+            return response()->json(['success'=>true, 'token'=>$token, 'result' => $user],200);
         }else {
             return response()->json(['success'=>false, 'status' => 500]);
         }

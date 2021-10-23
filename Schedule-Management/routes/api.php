@@ -6,6 +6,7 @@ use App\Http\Controllers\Api\Auth\LoginController;
 use App\Http\Controllers\Api\Auth\LogoutController;
 use App\Http\Controllers\Backend\AdminController;
 use App\Http\Controllers\Api\Auth\RegistrationController;
+use App\Http\Controllers\Backend\EmployeeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,9 +19,9 @@ use App\Http\Controllers\Api\Auth\RegistrationController;
 |
 */
 
-//Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-//    return $request->user();
-//});
+Route::middleware('auth:api')->get('/user', function (Request $request) {
+   return $request->user();
+});
 
 Route::group(['namespace'=>'Api'],function (){
 
@@ -29,7 +30,11 @@ Route::group(['namespace'=>'Api'],function (){
     Route::post('check-token', [LoginController::class, 'check_token']);
     Route::post('logout', [LogoutController::class, 'logout']);
 
-    //admin
-    Route::post('admin', [AdminController::class, 'index']);
+    Route::prefix('/employees')->group( function() {
 
+         //employee
+         Route::post('/', [EmployeeController::class, 'index']);
+
+
+    });
 });
