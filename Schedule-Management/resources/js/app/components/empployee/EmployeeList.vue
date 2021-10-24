@@ -51,8 +51,8 @@
                                             <td v-if="result.status === 1" class="text-success">Active</td>
                                             <td v-else class="text-danger">Deactive</td>
                                             <td>
-                                                <a class="btn btn-info"><i class="fa fa-eye"></i></a>
-                                                <a class="btn btn-secondary"><i class="fa fa-edit"></i></a>
+                                                <a type="button" class="btn btn-info" @click="show"><i class="fa fa-eye"></i></a>
+                                                <a type="button" class="btn btn-secondary" @click="edit"><i class="fa fa-edit"></i></a>
                                                 <a type="button" v-if="result.status === 0" class="btn btn-success" @click="changeStatus(result.id)"><i class="fa fa-check-square"></i></a>
                                                 <a type="button" v-if="result.status === 1" class="btn btn-warning" @click="changeStatus(result.id)"><i class="fa fa-ban"></i></a>
                                             </td>
@@ -62,20 +62,10 @@
                             </div>
                         </div>
                     </div>
-
                 </div>
-                <!-- /.container-fluid -->
-
             </div>
-            <!-- End of Main Content -->
-
         </div>
-        <!-- End of Content Wrapper -->
-
     </div>
-    <!-- End of Page Wrapper -->
-
-
 </template>
 
 <script>
@@ -107,12 +97,14 @@
             createForm() {
                 this.$router.push('/employee/create');
             },
+            show() {
+                this.$router.push('/employee/show');
+            },
+            edit() {
+                this.$router.push('/employee/edit');
+            },
             changeStatus(id) {
-                // alert(id)
-
                 axios.post('/api/employees/change-status',{ token : this.$store.state.token, id:id }).then((response) => {
-                    console.log(response.data.result);
-
                     this.$swal({
                         title: "Success",
                         text: response.data.result,

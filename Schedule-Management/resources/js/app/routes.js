@@ -6,6 +6,8 @@ import Registration from './components/Registration';
 import Dashboard from './components/Dashboard';
 import EmployeeList from './components/empployee/EmployeeList';
 import EmployeeCreate from './components/empployee/EmployeeCreate';
+import EmployeeShow from './components/empployee/EmployeeShow';
+import EmployeeEdit from './components/empployee/EmployeeEdit';
 
 
 Vue.use(VueRouter);
@@ -34,6 +36,14 @@ export const routes = [
     {
         path: '/employee/create',
         component: EmployeeCreate,
+    },
+    {
+        path: '/employee/show',
+        component: EmployeeShow,
+    },
+    {
+        path: '/employee/edit',
+        component: EmployeeEdit,
     },
 
 ];
