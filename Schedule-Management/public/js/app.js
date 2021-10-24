@@ -2711,6 +2711,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 
@@ -2721,6 +2722,14 @@ vue__WEBPACK_IMPORTED_MODULE_3__["default"].use((vue_swal__WEBPACK_IMPORTED_MODU
   components: {
     Sidebar: _layout_Sidebar_vue__WEBPACK_IMPORTED_MODULE_0__["default"],
     Header: _layout_Header_vue__WEBPACK_IMPORTED_MODULE_1__["default"]
+  },
+  mounted: function mounted() {
+    axios.post('/api/employees/edit', {
+      token: this.$store.state.token,
+      id: this.$route.params.id
+    }).then(function (response) {
+      console.log(response.data.result);
+    }); // console.log(this.$route.params.id)
   }
 });
 
@@ -2843,12 +2852,6 @@ vue__WEBPACK_IMPORTED_MODULE_3__["default"].use((vue_swal__WEBPACK_IMPORTED_MODU
     createForm: function createForm() {
       this.$router.push('/employee/create');
     },
-    show: function show() {
-      this.$router.push('/employee/show');
-    },
-    edit: function edit() {
-      this.$router.push('/employee/edit');
-    },
     changeStatus: function changeStatus(id) {
       var _this2 = this;
 
@@ -2966,7 +2969,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 
 
 
@@ -2977,6 +2979,21 @@ vue__WEBPACK_IMPORTED_MODULE_3__["default"].use((vue_swal__WEBPACK_IMPORTED_MODU
   components: {
     Sidebar: _layout_Sidebar_vue__WEBPACK_IMPORTED_MODULE_0__["default"],
     Header: _layout_Header_vue__WEBPACK_IMPORTED_MODULE_1__["default"]
+  },
+  data: function data() {
+    return {
+      result: {}
+    };
+  },
+  mounted: function mounted() {
+    var _this = this;
+
+    axios.post('/api/employees/show', {
+      token: this.$store.state.token,
+      id: this.$route.params.id
+    }).then(function (response) {
+      _this.result = response.data.result;
+    });
   }
 });
 
@@ -3421,16 +3438,19 @@ var routes = [{
   path: '/dashboard',
   component: _components_Dashboard__WEBPACK_IMPORTED_MODULE_3__["default"]
 }, {
+  name: 'employee',
   path: '/employee',
   component: _components_empployee_EmployeeList__WEBPACK_IMPORTED_MODULE_4__["default"]
 }, {
   path: '/employee/create',
   component: _components_empployee_EmployeeCreate__WEBPACK_IMPORTED_MODULE_5__["default"]
 }, {
+  name: 'employee.show',
   path: '/employee/show',
   component: _components_empployee_EmployeeShow__WEBPACK_IMPORTED_MODULE_6__["default"]
 }, {
-  path: '/employee/edit',
+  name: 'employee.edit',
+  path: '/employee/edit/:id',
   component: _components_empployee_EmployeeEdit__WEBPACK_IMPORTED_MODULE_7__["default"]
 }];
 
@@ -41135,6 +41155,8 @@ var render = function() {
                       _c("div", { staticClass: "card-header py-3" }),
                       _vm._v(" "),
                       _c("div", { staticClass: "card-body" }, [
+                        _c("h2"),
+                        _vm._v(" "),
                         _c("form", { on: { submit: _vm.employeeCreate } }, [
                           _c("div", { staticClass: "row" }, [
                             _c("div", { staticClass: "col-6" }, [
@@ -41374,63 +41396,99 @@ var render = function() {
                                       _vm._v("Deactive")
                                     ]),
                                 _vm._v(" "),
-                                _c("td", [
-                                  _c(
-                                    "a",
-                                    {
-                                      staticClass: "btn btn-info",
-                                      attrs: { type: "button" },
-                                      on: { click: _vm.show }
-                                    },
-                                    [_c("i", { staticClass: "fa fa-eye" })]
-                                  ),
-                                  _vm._v(" "),
-                                  _c(
-                                    "a",
-                                    {
-                                      staticClass: "btn btn-secondary",
-                                      attrs: { type: "button" },
-                                      on: { click: _vm.edit }
-                                    },
-                                    [_c("i", { staticClass: "fa fa-edit" })]
-                                  ),
-                                  _vm._v(" "),
-                                  result.status === 0
-                                    ? _c(
-                                        "a",
-                                        {
-                                          staticClass: "btn btn-success",
-                                          attrs: { type: "button" },
-                                          on: {
-                                            click: function($event) {
-                                              return _vm.changeStatus(result.id)
+                                _c(
+                                  "td",
+                                  [
+                                    _c(
+                                      "router-link",
+                                      {
+                                        staticClass: "btn btn-info",
+                                        attrs: {
+                                          to: {
+                                            name: "employee.show",
+                                            params: { id: result.id }
+                                          },
+                                          title: "Show",
+                                          "data-toggle": "tooltip",
+                                          "data-placement": "top"
+                                        }
+                                      },
+                                      [_c("i", { staticClass: "fa fa-eye" })]
+                                    ),
+                                    _vm._v(" "),
+                                    _c(
+                                      "router-link",
+                                      {
+                                        staticClass: "btn btn-secondary",
+                                        attrs: {
+                                          to: {
+                                            name: "employee.edit",
+                                            params: { id: result.id }
+                                          },
+                                          title: "Edit",
+                                          "data-toggle": "tooltip",
+                                          "data-placement": "top"
+                                        }
+                                      },
+                                      [_c("i", { staticClass: "fa fa-edit" })]
+                                    ),
+                                    _vm._v(" "),
+                                    result.status === 0
+                                      ? _c(
+                                          "a",
+                                          {
+                                            staticClass: "btn btn-success",
+                                            attrs: {
+                                              type: "button",
+                                              title: "Active",
+                                              "data-toggle": "tooltip",
+                                              "data-placement": "top"
+                                            },
+                                            on: {
+                                              click: function($event) {
+                                                return _vm.changeStatus(
+                                                  result.id
+                                                )
+                                              }
                                             }
-                                          }
-                                        },
-                                        [
-                                          _c("i", {
-                                            staticClass: "fa fa-check-square"
-                                          })
-                                        ]
-                                      )
-                                    : _vm._e(),
-                                  _vm._v(" "),
-                                  result.status === 1
-                                    ? _c(
-                                        "a",
-                                        {
-                                          staticClass: "btn btn-warning",
-                                          attrs: { type: "button" },
-                                          on: {
-                                            click: function($event) {
-                                              return _vm.changeStatus(result.id)
+                                          },
+                                          [
+                                            _c("i", {
+                                              staticClass: "fa fa-check-square"
+                                            })
+                                          ]
+                                        )
+                                      : _vm._e(),
+                                    _vm._v(" "),
+                                    result.status === 1
+                                      ? _c(
+                                          "a",
+                                          {
+                                            staticClass: "btn btn-warning",
+                                            attrs: {
+                                              type: "button",
+                                              title: "Dective",
+                                              "data-toggle": "tooltip",
+                                              "data-placement": "top"
+                                            },
+                                            on: {
+                                              click: function($event) {
+                                                return _vm.changeStatus(
+                                                  result.id
+                                                )
+                                              }
                                             }
-                                          }
-                                        },
-                                        [_c("i", { staticClass: "fa fa-ban" })]
-                                      )
-                                    : _vm._e()
-                                ])
+                                          },
+                                          [
+                                            _c("i", {
+                                              staticClass: "fa fa-ban"
+                                            })
+                                          ]
+                                        )
+                                      : _vm._e()
+                                  ],
+                                  1
+                                )
                               ])
                             }),
                             0
@@ -41522,34 +41580,17 @@ var render = function() {
                     _c("div", { staticClass: "card position-relative" }, [
                       _c("div", { staticClass: "card-header py-3" }),
                       _vm._v(" "),
-                      _c("div", { staticClass: "card-body" }, [
-                        _c("form", { on: { submit: _vm.employeeCreate } }, [
+                      _c(
+                        "div",
+                        { staticClass: "card-body" },
+                        [
                           _c("div", { staticClass: "row" }, [
                             _c("div", { staticClass: "col-6" }, [
                               _c("label", [_vm._v("Name")]),
                               _vm._v(" "),
-                              _c("input", {
-                                directives: [
-                                  {
-                                    name: "model",
-                                    rawName: "v-model",
-                                    value: _vm.name,
-                                    expression: "name"
-                                  }
-                                ],
-                                staticClass: "form-control",
-                                attrs: {
-                                  type: "text",
-                                  placeholder: "Enter Name"
-                                },
-                                domProps: { value: _vm.name },
-                                on: {
-                                  input: function($event) {
-                                    if ($event.target.composing) {
-                                      return
-                                    }
-                                    _vm.name = $event.target.value
-                                  }
+                              _c("h4", {
+                                domProps: {
+                                  textContent: _vm._s(_vm.result.name)
                                 }
                               })
                             ]),
@@ -41557,28 +41598,9 @@ var render = function() {
                             _c("div", { staticClass: "col-6" }, [
                               _c("label", [_vm._v("Designation")]),
                               _vm._v(" "),
-                              _c("input", {
-                                directives: [
-                                  {
-                                    name: "model",
-                                    rawName: "v-model",
-                                    value: _vm.designation,
-                                    expression: "designation"
-                                  }
-                                ],
-                                staticClass: "form-control",
-                                attrs: {
-                                  name: "designation",
-                                  placeholder: "Enter Desingation"
-                                },
-                                domProps: { value: _vm.designation },
-                                on: {
-                                  input: function($event) {
-                                    if ($event.target.composing) {
-                                      return
-                                    }
-                                    _vm.designation = $event.target.value
-                                  }
+                              _c("h4", {
+                                domProps: {
+                                  textContent: _vm._s(_vm.result.designation)
                                 }
                               })
                             ])
@@ -41588,28 +41610,9 @@ var render = function() {
                             _c("div", { staticClass: "col-6" }, [
                               _c("label", [_vm._v("Phone Number")]),
                               _vm._v(" "),
-                              _c("input", {
-                                directives: [
-                                  {
-                                    name: "model",
-                                    rawName: "v-model",
-                                    value: _vm.phone_number,
-                                    expression: "phone_number"
-                                  }
-                                ],
-                                staticClass: "form-control",
-                                attrs: {
-                                  name: "phone_number",
-                                  placeholder: "Enter Phone Number"
-                                },
-                                domProps: { value: _vm.phone_number },
-                                on: {
-                                  input: function($event) {
-                                    if ($event.target.composing) {
-                                      return
-                                    }
-                                    _vm.phone_number = $event.target.value
-                                  }
+                              _c("h4", {
+                                domProps: {
+                                  textContent: _vm._s(_vm.result.phone_number)
                                 }
                               })
                             ]),
@@ -41617,28 +41620,9 @@ var render = function() {
                             _c("div", { staticClass: "col-6" }, [
                               _c("label", [_vm._v("Address")]),
                               _vm._v(" "),
-                              _c("input", {
-                                directives: [
-                                  {
-                                    name: "model",
-                                    rawName: "v-model",
-                                    value: _vm.address,
-                                    expression: "address"
-                                  }
-                                ],
-                                staticClass: "form-control",
-                                attrs: {
-                                  name: "address",
-                                  placeholder: "Enter Address"
-                                },
-                                domProps: { value: _vm.address },
-                                on: {
-                                  input: function($event) {
-                                    if ($event.target.composing) {
-                                      return
-                                    }
-                                    _vm.address = $event.target.value
-                                  }
+                              _c("h4", {
+                                domProps: {
+                                  textContent: _vm._s(_vm.result.address)
                                 }
                               })
                             ])
@@ -41647,15 +41631,16 @@ var render = function() {
                           _c("br"),
                           _vm._v(" "),
                           _c(
-                            "button",
+                            "router-link",
                             {
                               staticClass: "btn btn-primary float-right",
-                              attrs: { type: "submit" }
+                              attrs: { to: { name: "employee" } }
                             },
-                            [_vm._v("Create")]
+                            [_vm._v("Back")]
                           )
-                        ])
-                      ])
+                        ],
+                        1
+                      )
                     ])
                   ])
                 ])

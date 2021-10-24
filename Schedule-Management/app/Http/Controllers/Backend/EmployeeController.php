@@ -79,9 +79,11 @@ class EmployeeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Request $request)
     {
-        //
+        $employee = Employee::where('id', $request->id)->first();
+
+        return response()->json(['success'=>true, 'result' => $employee],201);
     }
 
     /**
@@ -90,9 +92,12 @@ class EmployeeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Request $request)
     {
-        //
+        $employee = Employee::where('id', $request->id)->first();
+
+        return response()->json(['success'=>true, 'result' => $employee],201);
+
     }
 
     /**
@@ -102,9 +107,11 @@ class EmployeeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+        // $employee = Employee::where('id', $request->id)->first();
+
+        // return response()->json(['success'=>true, 'result' => $employee],201);
     }
 
     /**

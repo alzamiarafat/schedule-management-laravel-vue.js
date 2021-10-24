@@ -30,31 +30,30 @@
                             <div class="card position-relative">
                                 <div class="card-header py-3"></div>
                                 <div class="card-body">
-                                    <form @submit="employeeCreate">
-                                        <div class="row">
-                                            <div class="col-6">
-                                                <label>Name</label>
-                                                <input class="form-control" type="text" v-model="name" placeholder="Enter Name">
-                                            </div>
-                                            <div class="col-6">
-                                                <label>Designation</label>
-                                                <input class="form-control" name="designation" v-model="designation" placeholder="Enter Desingation">
-                                            </div>
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <label>Name</label>
+                                            <h4 v-text="result.name"></h4>
                                         </div>
-                                        <div class="row">
-                                            <div class="col-6">
-                                                <label>Phone Number</label>
-                                                <input class="form-control" name="phone_number" v-model="phone_number" placeholder="Enter Phone Number">
-                                            </div>
-                                            <div class="col-6">
-                                                <label>Address</label>
-                                                <input class="form-control" name="address" v-model="address" placeholder="Enter Address">
-                                            </div>
+                                        <div class="col-6">
+                                            <label>Designation</label>
+                                            <h4 v-text="result.designation"></h4>
                                         </div>
-                                        <br>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <label>Phone Number</label>
+                                            <h4 v-text="result.phone_number"></h4>
+                                        </div>
+                                        <div class="col-6">
+                                            <label>Address</label>
+                                            <h4 v-text="result.address"></h4>
+                                        </div>
+                                    </div>
+                                    <br>
+                                    <router-link :to="{name: 'employee'}" class="btn btn-primary float-right">Back</router-link>
 
-                                        <button class="btn btn-primary float-right" type="submit">Create</button>
-                                    </form>
+                                    <!-- <button class="btn btn-primary float-right" type="submit">Back</button> -->
                                 </div>
                             </div>
 
@@ -90,6 +89,16 @@
             Sidebar,
             Header
         },
+        data(){
+            return {
+                result: {}
+            }
+        },
+        mounted() {
+            axios.post('/api/employees/show',{ token : this.$store.state.token, id: this.$route.params.id}).then((response) => {
+                this.result = response.data.result;
+            });
+        }
     }
 </script>
 

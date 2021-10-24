@@ -30,6 +30,7 @@
                             <div class="card position-relative">
                                 <div class="card-header py-3"></div>
                                 <div class="card-body">
+                                    <h2></h2>
                                     <form @submit="employeeCreate">
                                         <div class="row">
                                             <div class="col-6">
@@ -90,6 +91,13 @@
             Sidebar,
             Header
         },
+        mounted() {
+            axios.post('/api/employees/edit',{ token : this.$store.state.token, id: this.$route.params.id}).then((response) => {
+            console.log(response.data.result)
+
+            });
+            // console.log(this.$route.params.id)
+        }
     }
 </script>
 

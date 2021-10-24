@@ -35,5 +35,8 @@ Route::group(['namespace'=>'Api'],function (){
         Route::post('/', [EmployeeController::class, 'index']);
         Route::post('/store', [EmployeeController::class, 'store']);
         Route::post('/change-status', [EmployeeController::class, 'change_status']);
+        Route::post('/edit', [EmployeeController::class, 'edit']);
+        Route::post('/show', [EmployeeController::class, 'show']);
+        // Route::post('/edit', [EmployeeController::class, 'edit']);
     });
 });

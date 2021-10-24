@@ -30,6 +30,7 @@ export const routes = [
         component: Dashboard,
     },
     {
+        name: 'employee',
         path: '/employee',
         component: EmployeeList,
     },
@@ -38,11 +39,13 @@ export const routes = [
         component: EmployeeCreate,
     },
     {
+        name: 'employee.show',
         path: '/employee/show',
         component: EmployeeShow,
     },
     {
-        path: '/employee/edit',
+        name: 'employee.edit',
+        path: '/employee/edit/:id',
         component: EmployeeEdit,
     },
 

@@ -51,10 +51,10 @@
                                             <td v-if="result.status === 1" class="text-success">Active</td>
                                             <td v-else class="text-danger">Deactive</td>
                                             <td>
-                                                <a type="button" class="btn btn-info" @click="show"><i class="fa fa-eye"></i></a>
-                                                <a type="button" class="btn btn-secondary" @click="edit"><i class="fa fa-edit"></i></a>
-                                                <a type="button" v-if="result.status === 0" class="btn btn-success" @click="changeStatus(result.id)"><i class="fa fa-check-square"></i></a>
-                                                <a type="button" v-if="result.status === 1" class="btn btn-warning" @click="changeStatus(result.id)"><i class="fa fa-ban"></i></a>
+                                                <router-link :to="{name: 'employee.show', params: { id: result.id }}" class="btn btn-info" title="Show" data-toggle="tooltip" data-placement="top"><i class="fa fa-eye" ></i></router-link>
+                                                <router-link :to="{name: 'employee.edit', params: { id: result.id }}" class="btn btn-secondary"  title="Edit" data-toggle="tooltip" data-placement="top"><i class="fa fa-edit"></i></router-link>
+                                                <a type="button" v-if="result.status === 0" class="btn btn-success" @click="changeStatus(result.id)" title="Active" data-toggle="tooltip" data-placement="top"><i class="fa fa-check-square"></i></a>
+                                                <a type="button" v-if="result.status === 1" class="btn btn-warning" @click="changeStatus(result.id)" title="Dective" data-toggle="tooltip" data-placement="top"><i class="fa fa-ban"></i></a>
                                             </td>
                                         </tr>
                                     </tbody>
@@ -96,12 +96,6 @@
         methods: {
             createForm() {
                 this.$router.push('/employee/create');
-            },
-            show() {
-                this.$router.push('/employee/show');
-            },
-            edit() {
-                this.$router.push('/employee/edit');
             },
             changeStatus(id) {
                 axios.post('/api/employees/change-status',{ token : this.$store.state.token, id:id }).then((response) => {
