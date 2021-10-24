@@ -30,11 +30,10 @@ Route::group(['namespace'=>'Api'],function (){
     Route::post('check-token', [LoginController::class, 'check_token']);
     Route::post('logout', [LogoutController::class, 'logout']);
 
-    Route::prefix('/employees')->group( function() {
-
-         //employee
-         Route::post('/', [EmployeeController::class, 'index']);
-
-
+    Route::prefix('/employees')->middleware('auth:api')->group( function() {
+        //employee
+        Route::post('/', [EmployeeController::class, 'index']);
+        Route::post('/store', [EmployeeController::class, 'store']);
+        Route::post('/change-status', [EmployeeController::class, 'change_status']);
     });
 });

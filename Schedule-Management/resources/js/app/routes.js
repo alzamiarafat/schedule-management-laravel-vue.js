@@ -4,12 +4,11 @@ import Home from './Home';
 import Login from './components/Login';
 import Registration from './components/Registration';
 import Dashboard from './components/Dashboard';
-import EmployeeList from './components/EmployeeList';
+import EmployeeList from './components/empployee/EmployeeList';
+import EmployeeCreate from './components/empployee/EmployeeCreate';
 
 
 Vue.use(VueRouter);
-
-
 
 export const routes = [
     {
@@ -31,6 +30,10 @@ export const routes = [
     {
         path: '/employee',
         component: EmployeeList,
+    },
+    {
+        path: '/employee/create',
+        component: EmployeeCreate,
     },
 
 ];

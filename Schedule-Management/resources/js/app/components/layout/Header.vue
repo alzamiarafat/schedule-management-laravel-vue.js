@@ -210,6 +210,19 @@
         name: "Header",
         components: {
 
-        }
+        },
+        methods : {
+            logout() {
+                axios.post('/api/logout',{ token : this.$store.state.token }).then((response) => {
+                    this.$store.commit('clearToken');
+                    this.$router.push('/login');
+                });
+            },
+            // employeeList() {
+            //     // axios.post('/api/employees',{ token : this.$store.state.token }).then((response) => {
+            //         this.$router.push('/employee');
+            //     // });
+            // }
+        },
     }
 </script>
