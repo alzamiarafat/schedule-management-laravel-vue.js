@@ -12,12 +12,12 @@ class RegistrationController extends Controller
     public function registration(Request $request)
     {
         User::create([
-           'name' => $request->name,
-           'email' => $request->email,
-           'password' => Hash::make($request->password),
+           'name' => $request->data['name'],
+           'email' => $request->data['email'],
+           'password' => Hash::make($request->data['password']),
         ]);
 
-        return response()->json(['success'=>true, 'token'=>"User has been successfully created"],201);
+        return response()->json(['success'=>true, 'result'=>"User has been successfully created"],201);
 
     }
 }

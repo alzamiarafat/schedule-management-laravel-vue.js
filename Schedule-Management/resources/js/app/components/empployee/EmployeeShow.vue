@@ -52,8 +52,6 @@
                                     </div>
                                     <br>
                                     <router-link :to="{name: 'employee'}" class="btn btn-primary float-right">Back</router-link>
-
-                                    <!-- <button class="btn btn-primary float-right" type="submit">Back</button> -->
                                 </div>
                             </div>
 

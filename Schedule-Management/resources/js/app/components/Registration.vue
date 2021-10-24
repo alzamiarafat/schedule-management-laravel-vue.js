@@ -6,35 +6,35 @@
                     <img src="https://colorlib.com/etc/lf/Login_v1/images/img-01.png" alt="IMG">
                 </div>
 
-                <form class="login100-form validate-form">
+                <form class="login100-form validate-form" @submit="registration">
                     <span class="login100-form-title">Registration</span>
 
-                    <div class="wrap-input100 validate-input" data-validate = "Valid email is required: ex@abc.xyz">
-                        <input class="input100" type="text" name="email" placeholder="Email">
+                    <div class="wrap-input100 validate-input">
+                        <input class="input100" type="text" v-model="name" placeholder="Enter Name">
                         <span class="focus-input100"></span>
                         <span class="symbol-input100">
                             <i class="fa fa-user" aria-hidden="true"></i>
                         </span>
                     </div>
 
-                    <div class="wrap-input100 validate-input" data-validate = "Valid email is required: ex@abc.xyz">
-                        <input class="input100" type="text" name="email" placeholder="Email">
+                    <div class="wrap-input100 validate-input">
+                        <input class="input100" type="email" v-model="email" placeholder="Enter Email">
                         <span class="focus-input100"></span>
                         <span class="symbol-input100">
                             <i class="fa fa-envelope" aria-hidden="true"></i>
                         </span>
                     </div>
 
-                    <div class="wrap-input100 validate-input" data-validate = "Password is required">
-                        <input class="input100" type="password" name="pass" placeholder="Password">
+                    <div class="wrap-input100 validate-input">
+                        <input class="input100" type="password" v-model="password" placeholder="Enter Password">
                         <span class="focus-input100"></span>
                         <span class="symbol-input100">
                             <i class="fa fa-lock" aria-hidden="true"></i>
                         </span>
                     </div>
 
-                    <div class="wrap-input100 validate-input" data-validate = "Password is required">
-                        <input class="input100" type="password" name="pass" placeholder="Password">
+                    <div class="wrap-input100 validate-input">
+                        <input class="input100" type="password" v-model="confirm_password" placeholder="Enter Confirm Password">
                         <span class="focus-input100"></span>
                         <span class="symbol-input100">
                             <i class="fa fa-lock" aria-hidden="true"></i>
@@ -42,9 +42,7 @@
                     </div>
 
                     <div class="container-login100-form-btn mb-5">
-                        <button class="login100-form-btn">
-                            Register
-                        </button>
+                        <button type="submit" class="login100-form-btn">Register</button>
                     </div>
 
                     <div class="text-center p-t-136">
@@ -58,9 +56,50 @@
 </template>
 
 <script>
-export default {
-    name: "Registration"
-}
+    import Vue from 'vue';
+    import VueSwal from 'vue-swal';
+
+    Vue.use(VueSwal)
+
+    export default {
+        name: "Registration",
+        methods: {
+            registration(e) {
+                e.preventDefault();
+                var formData = {
+                    'name': this.name,
+                    'email': this.email,
+                    'password': this.password,
+                };
+                axios.post('/api/registration', { data: formData } ).then((response) => {
+                    this.$swal({
+                        title: "Success",
+                        text: response.data.result,
+                        type: "success",
+                        icon: 'success',
+                        showCancelButton: false,
+                        confirmButtonText: "OK",
+                        closeOnCancel: true
+                    }).then(()=>{
+                        this.$router.push('/dashboard');
+                    });
+                    // this.$router.push('/employee');
+                }).catch((errors) => {
+                    this.$swal({
+                        title: "Success",
+                        text: response.data.result,
+                        type: "error",
+                        icon: 'error',
+                        showCancelButton: false,
+                        confirmButtonText: "OK",
+                        closeOnCancel: true
+                    }).then(()=>{
+                        this.$router.push('/registration');
+                    });
+                });
+            }
+        }
+    }
 </script>
 
 <style scoped>

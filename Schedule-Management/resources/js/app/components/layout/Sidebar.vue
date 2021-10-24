@@ -18,6 +18,34 @@
             <router-link class="nav-link" to="/dashboard"><i class="fas fa-fw fa-tachometer-alt"></i> Dashboard</router-link>
         </li>
 
+        <!-- Divider -->
+            <hr class="sidebar-divider">
+
+            <!-- Heading -->
+            <div class="sidebar-heading">
+                Setting
+            </div>
+
+            <!-- Nav Item - Pages Collapse Menu -->
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
+                    aria-expanded="true" aria-controls="collapseTwo">
+                    <i class="fas fa-fw fa-cog"></i>
+                    <span>Management</span>
+                </a>
+                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Custom Management:</h6>
+                        <router-link :to="{name: 'permissions'}" class="collapse-item">Permissions</router-link>
+
+                        <a class="collapse-item" href="buttons.html">Roles</a>
+                        <a class="collapse-item" href="cards.html">Permissions</a>
+                    </div>
+                </div>
+            </li>
+            <hr class="sidebar-divider">
+
+
         <li class="nav-item">
             <router-link class="nav-link" to="/employee"><i class="fa fa-user"></i> Employees</router-link>
         </li>
