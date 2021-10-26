@@ -5,6 +5,9 @@ import Login from './components/Login';
 import Registration from './components/Registration';
 import Dashboard from './components/Dashboard';
 import PermissionList from './components/permissions/PermissionList';
+import PermissionCreate from './components/permissions/PermissionCreate';
+import RoleList from './components/roles/RoleList';
+import RoleCreate from './components/roles/RoleCreate';
 import EmployeeList from './components/empployee/EmployeeList';
 import EmployeeCreate from './components/empployee/EmployeeCreate';
 import EmployeeShow from './components/empployee/EmployeeShow';
@@ -31,9 +34,24 @@ export const routes = [
         component: Dashboard,
     },
     {
-        name: 'permissions',
+        name: 'permission',
         path: '/permission',
         component: PermissionList,
+    },
+    {
+        name: 'permission.create',
+        path: '/permission/create',
+        component: PermissionCreate,
+    },
+    {
+        name: 'role',
+        path: '/role',
+        component: RoleList,
+    },
+    {
+        name: 'role.create',
+        path: '/role/create',
+        component: RoleCreate,
     },
     {
         name: 'employee',

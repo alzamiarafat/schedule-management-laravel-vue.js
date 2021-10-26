@@ -35,24 +35,24 @@
                                             <div class="col-6">
                                                 <label>Name</label>
                                                 <input class="form-control" type="text" v-model="name" placeholder="Enter Name">
-                                                <p class="text-danger" v-text="errors.nameError"></p>
+                                                <!-- <p class="text-danger" v-text="errors.nameError"></p> -->
                                             </div>
                                             <div class="col-6">
                                                 <label>Designation</label>
                                                 <input class="form-control" name="designation" v-model="designation" placeholder="Enter Desingation">
-                                                <p class="text-danger" v-text="errors.designationError"></p>
+                                                <!-- <p class="text-danger" v-text="errors.designationError"></p> -->
                                             </div>
                                         </div>
                                         <div class="row">
                                             <div class="col-6">
                                                 <label>Phone Number</label>
                                                 <input class="form-control" name="phone_number" v-model="phone_number" placeholder="Enter Phone Number">
-                                                <p class="text-danger" v-text="errors.phoneNumberError"></p>
+                                                <!-- <p class="text-danger" v-text="errors.phoneNumberError"></p> -->
                                             </div>
                                             <div class="col-6">
                                                 <label>Address</label>
                                                 <input class="form-control" name="address" v-model="address" placeholder="Enter Address">
-                                                <p class="text-danger" v-text="errors.addressError"></p>
+                                                <!-- <p class="text-danger" v-text="errors.addressError"></p> -->
                                             </div>
                                         </div>
                                         <br>
@@ -134,7 +134,6 @@
                     'designation': this.designation,
                     'phone_number': this.phone_number,
                     'address': this.address,
-
                 };
                 axios.post('/api/employees/store', { token : this.$store.state.token , data: formData } ).then((response) => {
                     this.$swal({

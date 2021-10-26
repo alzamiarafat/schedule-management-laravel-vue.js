@@ -25,7 +25,9 @@
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
-                            <button class="btn btn-primary float-right" @click="createForm">+ Add New</button>
+                            <router-link :to="{name: 'permission.create'}" class="btn btn-primary float-right"><i class="fa fa-plus"> Add New</i></router-link>
+
+                            <!-- <button class="btn btn-primary float-right">+ Add New</button> -->
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
@@ -34,24 +36,22 @@
                                         <tr>
                                             <th>SL</th>
                                             <th>Name</th>
-                                            <th>Action</th>
                                             <th>Date Posted</th>
+                                            <th>Action</th>
+
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr v-for="(result, index) in results" :key="result">
                                             <td>{{ index+1 }}</td>
                                             <td>{{ result.name }}</td>
-                                            <td>{{ result.designation }}</td>
-                                            <td>{{ result.address }}</td>
-                                            <td>{{ result.phone_number }}</td>
-                                            <td v-if="result.status === 1" class="text-success">Active</td>
-                                            <td v-else class="text-danger">Deactive</td>
+                                            <td>{{ result.created_at }}</td>
                                             <td>
-                                                <router-link :to="{name: 'employee.show', params: { id: result.id }}" class="btn btn-info" title="Show" data-toggle="tooltip" data-placement="top"><i class="fa fa-eye" ></i></router-link>
-                                                <router-link :to="{name: 'employee.edit', params: { id: result.id }}" class="btn btn-secondary"  title="Edit" data-toggle="tooltip" data-placement="top"><i class="fa fa-edit"></i></router-link>
-                                                <a type="button" v-if="result.status === 0" class="btn btn-success" @click="changeStatus(result.id)" title="Active" data-toggle="tooltip" data-placement="top"><i class="fa fa-check-square"></i></a>
-                                                <a type="button" v-if="result.status === 1" class="btn btn-warning" @click="changeStatus(result.id)" title="Dective" data-toggle="tooltip" data-placement="top"><i class="fa fa-ban"></i></a>
+                                                <!-- <router-link :to="{name: 'employee.show', params: { id: result.id }}" class="btn btn-info" title="Show" data-toggle="tooltip" data-placement="top"><i class="fa fa-eye" ></i></router-link> -->
+                                                <router-link :to="{name: 'permission.edit', params: { id: result.id }}" class="btn btn-secondary"  title="Edit" data-toggle="tooltip" data-placement="top"><i class="fa fa-edit"></i></router-link>
+                                                <router-link :to="{name: 'permission.edit', params: { id: result.id }}" class="btn btn-danger"  title="Delete" data-toggle="tooltip" data-placement="top"><i class="fa fa-trash"></i></router-link>
+                                                <!-- <a type="button" v-if="result.status === 0" class="btn btn-success" @click="changeStatus(result.id)" title="Active" data-toggle="tooltip" data-placement="top"><i class="fa fa-check-square"></i></a>
+                                                <a type="button" v-if="result.status === 1" class="btn btn-warning" @click="changeStatus(result.id)" title="Dective" data-toggle="tooltip" data-placement="top"><i class="fa fa-ban"></i></a> -->
                                             </td>
                                         </tr>
                                     </tbody>
@@ -85,31 +85,10 @@
             }
         },
         mounted() {
-            axios.post('/api/employees',{ token : this.$store.state.token }).then((response) => {
+            axios.post('/api/permission',{ token : this.$store.state.token }).then((response) => {
                 this.results = response.data.result;
-                this.$router.push('/employee');
             });
         },
-        methods: {
-            createForm() {
-                this.$router.push('/employee/create');
-            },
-            changeStatus(id) {
-                axios.post('/api/employees/change-status',{ token : this.$store.state.token, id:id }).then((response) => {
-                    this.$swal({
-                        title: "Success",
-                        text: response.data.result,
-                        type: "success",
-                        icon: 'success',
-                        showCancelButton: false,
-                        confirmButtonText: "OK",
-                        closeOnCancel: true
-                    }).then(()=>{
-                        this.$router.go('/employee');
-                    });
-                });
-            }
-        }
     }
 </script>
 

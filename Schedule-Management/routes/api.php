@@ -7,6 +7,8 @@ use App\Http\Controllers\Api\Auth\LogoutController;
 use App\Http\Controllers\Backend\AdminController;
 use App\Http\Controllers\Api\Auth\RegistrationController;
 use App\Http\Controllers\Backend\EmployeeController;
+use App\Http\Controllers\Backend\PermissionController;
+use App\Http\Controllers\Backend\RoleController;
 
 /*
 |--------------------------------------------------------------------------
@@ -38,5 +40,19 @@ Route::group(['namespace'=>'Api'],function (){
         Route::post('/edit', [EmployeeController::class, 'edit']);
         Route::post('/show', [EmployeeController::class, 'show']);
         // Route::post('/edit', [EmployeeController::class, 'edit']);
+    });
+
+    Route::prefix('/permission')->middleware('auth:api')->group( function() {
+        //permission
+        Route::post('/', [PermissionController::class, 'index']);
+        Route::post('/store', [PermissionController::class, 'store']);
+
+    });
+
+    Route::prefix('/role')->middleware('auth:api')->group( function() {
+        //role
+        Route::post('/', [RoleController::class, 'index']);
+        Route::post('/store', [RoleController::class, 'store']);
+
     });
 });

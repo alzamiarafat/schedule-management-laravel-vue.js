@@ -8,6 +8,7 @@ use Spatie\Permission\Models\Permission;
 
 class PermissionController extends Controller
 {
+    protected $permission;
     public function __construct(Permission $permission)
     {
         $this->permission = $permission;
@@ -20,8 +21,7 @@ class PermissionController extends Controller
      */
     public function index()
     {
-        $permissions = $this->permissioin::all();
-
+        $permissions =  $this->permission::all();
         return response()->json(['success'=>true, 'result' => $permissions],201);
     }
 
@@ -43,7 +43,10 @@ class PermissionController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->permission::create([
+            'name' => $request->data['name'],
+        ]);
+        return response()->json(['success'=>true, 'result'=>"Permission has been successfully created"],201);
     }
 
     /**

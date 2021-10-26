@@ -33,13 +33,13 @@
                     <i class="fas fa-fw fa-cog"></i>
                     <span>Management</span>
                 </a>
+                
                 <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Custom Management:</h6>
-                        <router-link :to="{name: 'permissions'}" class="collapse-item">Permissions</router-link>
-
-                        <a class="collapse-item" href="buttons.html">Roles</a>
-                        <a class="collapse-item" href="cards.html">Permissions</a>
+                        <router-link :to="{name: 'permission'}" class="collapse-item">Permissions</router-link>
+                        <router-link :to="{name: 'role'}" class="collapse-item">Roles</router-link>
+                        <!-- <a class="collapse-item" href="buttons.html">Roles</a> -->
                     </div>
                 </div>
             </li>
@@ -83,6 +83,11 @@ export default {
     data() {
         return {
             // result : []
+        }
+    },
+    computed: {
+        currentRouteName() {
+            return this.$route.name;
         }
     },
     methods : {
