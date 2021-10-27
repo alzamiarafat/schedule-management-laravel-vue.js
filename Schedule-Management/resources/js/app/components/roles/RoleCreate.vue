@@ -47,7 +47,6 @@
                                                 </div>
                                             </div>
                                         </div>
-                                            selected:  {{ store.name }}
                                         <br>
                                         <button class="btn btn-primary float-right" type="submit">Create</button>
                                     </form>
@@ -92,7 +91,6 @@
                     permission: []
                 },
                 results : [],
-                selectedData: []
             }
         },
         mounted() {

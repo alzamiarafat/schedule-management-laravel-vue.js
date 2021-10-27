@@ -8,10 +8,11 @@ import PermissionList from './components/permissions/PermissionList';
 import PermissionCreate from './components/permissions/PermissionCreate';
 import RoleList from './components/roles/RoleList';
 import RoleCreate from './components/roles/RoleCreate';
-import EmployeeList from './components/empployee/EmployeeList';
-import EmployeeCreate from './components/empployee/EmployeeCreate';
-import EmployeeShow from './components/empployee/EmployeeShow';
-import EmployeeEdit from './components/empployee/EmployeeEdit';
+import UserList from './components/users/UserList';
+import EmployeeList from './components/employees/EmployeeList';
+import EmployeeCreate from './components/employees/EmployeeCreate';
+import EmployeeShow from './components/employees/EmployeeShow';
+import EmployeeEdit from './components/employees/EmployeeEdit';
 
 
 Vue.use(VueRouter);
@@ -52,6 +53,11 @@ export const routes = [
         name: 'role.create',
         path: '/role/create',
         component: RoleCreate,
+    },
+    {
+        name: 'user',
+        path: '/user',
+        component: UserList,
     },
     {
         name: 'employee',

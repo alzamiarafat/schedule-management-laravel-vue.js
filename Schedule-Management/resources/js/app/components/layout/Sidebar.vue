@@ -19,38 +19,40 @@
         </li>
 
         <!-- Divider -->
-            <hr class="sidebar-divider">
+        <hr class="sidebar-divider">
 
-            <!-- Heading -->
-            <div class="sidebar-heading">
-                Setting
-            </div>
+        <!-- Heading -->
+        <div class="sidebar-heading">
+            Setting
+        </div>
 
-            <!-- Nav Item - Pages Collapse Menu -->
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
-                    aria-expanded="true" aria-controls="collapseTwo">
-                    <i class="fas fa-fw fa-cog"></i>
-                    <span>Management</span>
-                </a>
-                
-                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Custom Management:</h6>
-                        <router-link :to="{name: 'permission'}" class="collapse-item">Permissions</router-link>
-                        <router-link :to="{name: 'role'}" class="collapse-item">Roles</router-link>
-                        <!-- <a class="collapse-item" href="buttons.html">Roles</a> -->
-                    </div>
+        <!-- Nav Item - Pages Collapse Menu -->
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseOne"
+                aria-expanded="true" aria-controls="collapseTwo">
+                <i class="fas fa-fw fa-cog"></i>
+                <span>Management</span>
+            </a>
+
+            <div id="collapseOne" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <h6 class="collapse-header">Custom Management:</h6>
+                    <router-link :to="{name: 'permission'}" class="collapse-item">Permissions</router-link>
+                    <router-link :to="{name: 'role'}" class="collapse-item">Roles</router-link>
+                    <!-- <a class="collapse-item" href="buttons.html">Roles</a> -->
                 </div>
-            </li>
-            <hr class="sidebar-divider">
-
+            </div>
+        </li>
+        <hr class="sidebar-divider">
 
         <li class="nav-item">
-            <router-link class="nav-link" to="/employee"><i class="fa fa-user"></i> Employees</router-link>
+            <router-link class="nav-link" to="/user"><i class="fa fa-fw fa-user"></i> Users</router-link>
         </li>
+        <hr class="sidebar-divider">
 
-        <!-- Divider -->
+        <li class="nav-item">
+            <router-link class="nav-link" to="/employee"><i class="fa fa-fw fa-user-tie"></i> Employees</router-link>
+        </li>
         <hr class="sidebar-divider">
     </ul>
 

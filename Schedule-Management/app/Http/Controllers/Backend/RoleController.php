@@ -21,15 +21,9 @@ class RoleController extends Controller
      */
     public function index()
     {
-        $roles = $this->role::all();
-        $permission = Permission::all();
-        // $p = $this->role->givePermissionTo($permission);
+        $roles = $this->role::with('permissions')->get();
 
-
-        $p = $roles->getPermissionNames();
-
-
-        return response()->json(['success'=>true, 'result' => $roles, 'permissions' => $p],201);
+        return response()->json(['success'=>true, 'result' => $roles],201);
     }
 
     /**
@@ -100,8 +94,10 @@ class RoleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request)
     {
-        //
+        Role::where('id',$request->id)->delete();
+
+        return response()->json(['success'=>true, 'result' => "This role has been deleted successfully"], 201);
     }
 }

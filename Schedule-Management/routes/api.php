@@ -46,6 +46,7 @@ Route::group(['namespace'=>'Api'],function (){
         //permission
         Route::post('/', [PermissionController::class, 'index']);
         Route::post('/store', [PermissionController::class, 'store']);
+        Route::post('/delete', [PermissionController::class, 'destroy']);
 
     });
 
@@ -53,6 +54,7 @@ Route::group(['namespace'=>'Api'],function (){
         //role
         Route::post('/', [RoleController::class, 'index']);
         Route::post('/store', [RoleController::class, 'store']);
+        Route::post('/delete', [RoleController::class, 'destroy']);
 
     });
 });
