@@ -3,9 +3,10 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
+use App\Models\User;
 use Illuminate\Http\Request;
 
-class AdminController extends Controller
+class UserController extends Controller
 {
     public function __construct()
     {
@@ -14,6 +15,7 @@ class AdminController extends Controller
 
     public function index()
     {
-        return response()->json(['success'=>true, 'message'=>"You are in the Dashboard"]);
+        $users = User::with('roles')->get();
+        return response()->json(['success'=>true, 'result'=>$users]);
     }
 }

@@ -4,11 +4,11 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\Auth\LoginController;
 use App\Http\Controllers\Api\Auth\LogoutController;
-use App\Http\Controllers\Backend\AdminController;
 use App\Http\Controllers\Api\Auth\RegistrationController;
 use App\Http\Controllers\Backend\EmployeeController;
 use App\Http\Controllers\Backend\PermissionController;
 use App\Http\Controllers\Backend\RoleController;
+use App\Http\Controllers\Backend\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,6 +31,11 @@ Route::group(['namespace'=>'Api'],function (){
     Route::post('login', [LoginController::class, 'login']);
     Route::post('check-token', [LoginController::class, 'check_token']);
     Route::post('logout', [LogoutController::class, 'logout']);
+
+    Route::prefix('/user')->middleware('auth:api')->group( function() {
+        //user
+        Route::post('/', [UserController::class, 'index']);
+    });
 
     Route::prefix('/employees')->middleware('auth:api')->group( function() {
         //employee

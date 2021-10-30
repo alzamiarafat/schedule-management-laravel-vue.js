@@ -20,12 +20,12 @@
                 <div class="container-fluid">
 
                     <!-- Page Heading -->
-                    <h1 class="h3 mb-2 text-gray-800">Employee List</h1>
+                    <h1 class="h3 mb-2 text-gray-800">User List</h1>
 
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
-                            <button class="btn btn-primary float-right" @click="createForm">+ Add New</button>
+                            <router-link :to="{name: 'user.create'}" class="btn btn-primary float-right"><i class="fa fa-plus" ></i> Add New</router-link>
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
@@ -34,10 +34,9 @@
                                         <tr>
                                             <th>SL</th>
                                             <th>Name</th>
-                                            <th>Position</th>
-                                            <th>Address</th>
-                                            <th>Phone Number</th>
-                                            <th>Status</th>
+                                            <th>Email</th>
+                                            <th>Role</th>
+                                            <th>Permission</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
@@ -45,7 +44,6 @@
                                         <tr v-for="(result, index) in results" :key="result">
                                             <td>{{ index+1 }}</td>
                                             <td>{{ result.name }}</td>
-                                            <td>{{ result.designation }}</td>
                                             <td>{{ result.address }}</td>
                                             <td>{{ result.phone_number }}</td>
                                             <td v-if="result.status === 1" class="text-success">Active</td>
@@ -88,15 +86,12 @@
             }
         },
         mounted() {
-            axios.post('/api/employees',{ token : this.$store.state.token }).then((response) => {
+            axios.post('/api/user',{ token : this.$store.state.token }).then((response) => {
                 this.results = response.data.result;
-                this.$router.push('/employee');
+                this.$router.push('/user');
             });
         },
         methods: {
-            createForm() {
-                this.$router.push('/employee/create');
-            },
             changeStatus(id) {
                 axios.post('/api/employees/change-status',{ token : this.$store.state.token, id:id }).then((response) => {
                     this.$swal({
