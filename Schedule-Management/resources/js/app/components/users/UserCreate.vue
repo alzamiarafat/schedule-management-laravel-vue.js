@@ -51,16 +51,16 @@
                                             </div>
                                             <div class="col-6">
                                                 <label>Mobile Number</label>
-                                                <input class="form-control" name="address" placeholder="Enter Address">
+                                                <input class="form-control" name="contact_no" v-model="store.contact_no" placeholder="Enter Mobile Number">
                                                 <!-- <p class="text-danger" v-text="errors.addressError"></p> -->
                                             </div>
                                         </div>
                                         <div class="row">
                                             <div class="col-6">
                                                 <label>Role</label>
-                                                <select class="form-control">
+                                                <select class="form-control" v-model="store.role">
                                                     <option selected disabled value="">Select One</option>
-                                                    <option v-for="role in roles" :key="role.id">{{ role.name }}</option>
+                                                    <option v-for="role in roles" :key="role.id" :value="role.id">{{ role.name }}</option>
                                                 </select>
                                                 <!-- <p class="text-danger" v-text="errors.phoneNumberError"></p> -->
                                             </div>
@@ -124,6 +124,7 @@
                 store : {
                     name : '',
                     email : '',
+                    contact_no : '',
                     password : '',
                     role : '',
                     permission : []
@@ -157,13 +158,7 @@
 
             userCreate(e) {
                 e.preventDefault();
-                var formData = {
-                    'name': this.name,
-                    'designation': this.designation,
-                    'phone_number': this.phone_number,
-                    'address': this.address,
-                };
-                axios.post('/api/employees/store', { token : this.$store.state.token , data: formData } ).then((response) => {
+                axios.post('/api/user/store', { token : this.$store.state.token , data: this.store} ).then((response) => {
                     this.$swal({
                         title: "Success",
                         text: response.data.result,
@@ -173,20 +168,19 @@
                         confirmButtonText: "OK",
                         closeOnCancel: true
                     }).then(()=>{
-                        this.$router.push('/employee');
+                        this.$router.push('/user');
                     });
-                    // this.$router.push('/employee');
                 }).catch((errors) => {
                     this.$swal({
                         title: "Success",
-                        text: response.data.result,
+                        text: errors,
                         type: "error",
                         icon: 'error',
                         showCancelButton: false,
                         confirmButtonText: "OK",
                         closeOnCancel: true
                     }).then(()=>{
-                        this.$router.push('/employee/create');
+                        this.$router.push('/user/create');
                     });
                 });
             }

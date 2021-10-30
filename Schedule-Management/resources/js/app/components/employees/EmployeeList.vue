@@ -42,7 +42,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr v-for="(result, index) in results" :key="result">
+                                        <tr v-for="(result, index) in results" :key="result.id">
                                             <td>{{ index+1 }}</td>
                                             <td>{{ result.name }}</td>
                                             <td>{{ result.designation }}</td>

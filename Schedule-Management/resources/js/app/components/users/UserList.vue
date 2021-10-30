@@ -35,19 +35,20 @@
                                             <th>SL</th>
                                             <th>Name</th>
                                             <th>Email</th>
+                                            <th>Phone Number</th>
                                             <th>Role</th>
-                                            <th>Permission</th>
+                                            <!-- <th>Permission</th> -->
                                             <th>Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr v-for="(result, index) in results" :key="result">
+                                        <tr v-for="(result, index) in results" :key="result.id">
                                             <td>{{ index+1 }}</td>
                                             <td>{{ result.name }}</td>
-                                            <td>{{ result.address }}</td>
-                                            <td>{{ result.phone_number }}</td>
-                                            <td v-if="result.status === 1" class="text-success">Active</td>
-                                            <td v-else class="text-danger">Deactive</td>
+                                            <td>{{ result.email }}</td>
+                                            <td>{{ result.contact_no }}</td>
+                                            <td v-if="result.roles.length > 0">{{ result.roles[0]['name'] }}</td>
+                                            <td v-else class="text-danger">There is no role selected</td>
                                             <td>
                                                 <router-link :to="{name: 'employee.show', params: { id: result.id }}" class="btn btn-info" title="Show" data-toggle="tooltip" data-placement="top"><i class="fa fa-eye" ></i></router-link>
                                                 <router-link :to="{name: 'employee.edit', params: { id: result.id }}" class="btn btn-secondary"  title="Edit" data-toggle="tooltip" data-placement="top"><i class="fa fa-edit"></i></router-link>
@@ -75,7 +76,7 @@
     Vue.use(VueSwal)
 
     export default {
-        name: "EmployeeList",
+        name: "UserList",
          components: {
             Sidebar,
             Header
@@ -86,12 +87,16 @@
             }
         },
         mounted() {
-            axios.post('/api/user',{ token : this.$store.state.token }).then((response) => {
-                this.results = response.data.result;
-                this.$router.push('/user');
-            });
+            this.getAllUser();
         },
         methods: {
+            getAllUser() {
+                axios.post('/api/user',{ token : this.$store.state.token }).then((response) => {
+                    this.results = response.data.result;
+                    this.$router.push('/user');
+                });
+            },
+
             changeStatus(id) {
                 axios.post('/api/employees/change-status',{ token : this.$store.state.token, id:id }).then((response) => {
                     this.$swal({

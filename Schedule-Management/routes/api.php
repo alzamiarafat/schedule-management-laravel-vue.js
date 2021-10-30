@@ -35,6 +35,7 @@ Route::group(['namespace'=>'Api'],function (){
     Route::prefix('/user')->middleware('auth:api')->group( function() {
         //user
         Route::post('/', [UserController::class, 'index']);
+        Route::post('/store', [UserController::class, 'store']);
     });
 
     Route::prefix('/employees')->middleware('auth:api')->group( function() {

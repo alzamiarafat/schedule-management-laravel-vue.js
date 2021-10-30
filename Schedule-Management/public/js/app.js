@@ -4188,6 +4188,7 @@ vue__WEBPACK_IMPORTED_MODULE_3__["default"].use((vue_swal__WEBPACK_IMPORTED_MODU
       store: {
         name: '',
         email: '',
+        contact_no: '',
         password: '',
         role: '',
         permission: []
@@ -4228,15 +4229,9 @@ vue__WEBPACK_IMPORTED_MODULE_3__["default"].use((vue_swal__WEBPACK_IMPORTED_MODU
       var _this3 = this;
 
       e.preventDefault();
-      var formData = {
-        'name': this.name,
-        'designation': this.designation,
-        'phone_number': this.phone_number,
-        'address': this.address
-      };
-      axios.post('/api/employees/store', {
+      axios.post('/api/user/store', {
         token: this.$store.state.token,
-        data: formData
+        data: this.store
       }).then(function (response) {
         _this3.$swal({
           title: "Success",
@@ -4247,20 +4242,19 @@ vue__WEBPACK_IMPORTED_MODULE_3__["default"].use((vue_swal__WEBPACK_IMPORTED_MODU
           confirmButtonText: "OK",
           closeOnCancel: true
         }).then(function () {
-          _this3.$router.push('/employee');
-        }); // this.$router.push('/employee');
-
+          _this3.$router.push('/user');
+        });
       })["catch"](function (errors) {
         _this3.$swal({
           title: "Success",
-          text: response.data.result,
+          text: errors,
           type: "error",
           icon: 'error',
           showCancelButton: false,
           confirmButtonText: "OK",
           closeOnCancel: true
         }).then(function () {
-          _this3.$router.push('/employee/create');
+          _this3.$router.push('/user/create');
         });
       });
     }
@@ -4353,13 +4347,14 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 
 
 vue__WEBPACK_IMPORTED_MODULE_3__["default"].use((vue_swal__WEBPACK_IMPORTED_MODULE_2___default()));
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  name: "EmployeeList",
+  name: "UserList",
   components: {
     Sidebar: _layout_Sidebar_vue__WEBPACK_IMPORTED_MODULE_0__["default"],
     Header: _layout_Header_vue__WEBPACK_IMPORTED_MODULE_1__["default"]
@@ -4370,17 +4365,20 @@ vue__WEBPACK_IMPORTED_MODULE_3__["default"].use((vue_swal__WEBPACK_IMPORTED_MODU
     };
   },
   mounted: function mounted() {
-    var _this = this;
-
-    axios.post('/api/user', {
-      token: this.$store.state.token
-    }).then(function (response) {
-      _this.results = response.data.result;
-
-      _this.$router.push('/user');
-    });
+    this.getAllUser();
   },
   methods: {
+    getAllUser: function getAllUser() {
+      var _this = this;
+
+      axios.post('/api/user', {
+        token: this.$store.state.token
+      }).then(function (response) {
+        _this.results = response.data.result;
+
+        _this.$router.push('/user');
+      });
+    },
     changeStatus: function changeStatus(id) {
       var _this2 = this;
 
@@ -67590,7 +67588,7 @@ var render = function() {
                           _c(
                             "tbody",
                             _vm._l(_vm.results, function(result, index) {
-                              return _c("tr", { key: result }, [
+                              return _c("tr", { key: result.id }, [
                                 _c("td", [_vm._v(_vm._s(index + 1))]),
                                 _vm._v(" "),
                                 _c("td", [_vm._v(_vm._s(result.name))]),
@@ -69553,7 +69551,38 @@ var render = function() {
                               })
                             ]),
                             _vm._v(" "),
-                            _vm._m(0)
+                            _c("div", { staticClass: "col-6" }, [
+                              _c("label", [_vm._v("Mobile Number")]),
+                              _vm._v(" "),
+                              _c("input", {
+                                directives: [
+                                  {
+                                    name: "model",
+                                    rawName: "v-model",
+                                    value: _vm.store.contact_no,
+                                    expression: "store.contact_no"
+                                  }
+                                ],
+                                staticClass: "form-control",
+                                attrs: {
+                                  name: "contact_no",
+                                  placeholder: "Enter Mobile Number"
+                                },
+                                domProps: { value: _vm.store.contact_no },
+                                on: {
+                                  input: function($event) {
+                                    if ($event.target.composing) {
+                                      return
+                                    }
+                                    _vm.$set(
+                                      _vm.store,
+                                      "contact_no",
+                                      $event.target.value
+                                    )
+                                  }
+                                }
+                              })
+                            ])
                           ]),
                           _vm._v(" "),
                           _c("div", { staticClass: "row" }, [
@@ -69562,7 +69591,39 @@ var render = function() {
                               _vm._v(" "),
                               _c(
                                 "select",
-                                { staticClass: "form-control" },
+                                {
+                                  directives: [
+                                    {
+                                      name: "model",
+                                      rawName: "v-model",
+                                      value: _vm.store.role,
+                                      expression: "store.role"
+                                    }
+                                  ],
+                                  staticClass: "form-control",
+                                  on: {
+                                    change: function($event) {
+                                      var $$selectedVal = Array.prototype.filter
+                                        .call($event.target.options, function(
+                                          o
+                                        ) {
+                                          return o.selected
+                                        })
+                                        .map(function(o) {
+                                          var val =
+                                            "_value" in o ? o._value : o.value
+                                          return val
+                                        })
+                                      _vm.$set(
+                                        _vm.store,
+                                        "role",
+                                        $event.target.multiple
+                                          ? $$selectedVal
+                                          : $$selectedVal[0]
+                                      )
+                                    }
+                                  }
+                                },
                                 [
                                   _c(
                                     "option",
@@ -69577,9 +69638,14 @@ var render = function() {
                                   ),
                                   _vm._v(" "),
                                   _vm._l(_vm.roles, function(role) {
-                                    return _c("option", { key: role.id }, [
-                                      _vm._v(_vm._s(role.name))
-                                    ])
+                                    return _c(
+                                      "option",
+                                      {
+                                        key: role.id,
+                                        domProps: { value: role.id }
+                                      },
+                                      [_vm._v(_vm._s(role.name))]
+                                    )
                                   })
                                 ],
                                 2
@@ -69722,21 +69788,7 @@ var render = function() {
     1
   )
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-6" }, [
-      _c("label", [_vm._v("Mobile Number")]),
-      _vm._v(" "),
-      _c("input", {
-        staticClass: "form-control",
-        attrs: { name: "address", placeholder: "Enter Address" }
-      })
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -69818,21 +69870,21 @@ var render = function() {
                           _c(
                             "tbody",
                             _vm._l(_vm.results, function(result, index) {
-                              return _c("tr", { key: result }, [
+                              return _c("tr", { key: result.id }, [
                                 _c("td", [_vm._v(_vm._s(index + 1))]),
                                 _vm._v(" "),
                                 _c("td", [_vm._v(_vm._s(result.name))]),
                                 _vm._v(" "),
-                                _c("td", [_vm._v(_vm._s(result.address))]),
+                                _c("td", [_vm._v(_vm._s(result.email))]),
                                 _vm._v(" "),
-                                _c("td", [_vm._v(_vm._s(result.phone_number))]),
+                                _c("td", [_vm._v(_vm._s(result.contact_no))]),
                                 _vm._v(" "),
-                                result.status === 1
-                                  ? _c("td", { staticClass: "text-success" }, [
-                                      _vm._v("Active")
+                                result.roles.length > 0
+                                  ? _c("td", [
+                                      _vm._v(_vm._s(result.roles[0]["name"]))
                                     ])
                                   : _c("td", { staticClass: "text-danger" }, [
-                                      _vm._v("Deactive")
+                                      _vm._v("There is no role selected")
                                     ]),
                                 _vm._v(" "),
                                 _c(
@@ -69960,9 +70012,9 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", [_vm._v("Email")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Role")]),
+        _c("th", [_vm._v("Phone Number")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Permission")]),
+        _c("th", [_vm._v("Role")]),
         _vm._v(" "),
         _c("th", [_vm._v("Action")])
       ])
