@@ -41,6 +41,7 @@
                                             <th>Action</th>
                                         </tr>
                                     </thead>
+
                                     <tbody>
                                         <tr v-for="(result, index) in results" :key="result.id">
                                             <td>{{ index+1 }}</td>
@@ -57,6 +58,11 @@
                                                 <a type="button" v-if="result.status === 1" class="btn btn-warning" @click="changeStatus(result.id)" title="Dective" data-toggle="tooltip" data-placement="top"><i class="fa fa-ban"></i></a>
                                             </td>
                                         </tr>
+                                    </tbody>
+                                </table>
+                                <table v-if="loading" class="table table-bordered text-center" width="100%" cellspacing="0">
+                                    <tbody>
+                                        <div class="spinner-border text-info mt-3 mb-3" style="width: 3rem; height: 3rem;" role="status"></div>
                                     </tbody>
                                 </table>
                             </div>
@@ -85,12 +91,14 @@
         data() {
             return {
                 results : [],
+                loading : true
             }
         },
         mounted() {
             axios.post('/api/employees',{ token : this.$store.state.token }).then((response) => {
                 this.results = response.data.result;
                 this.$router.push('/employee');
+                this.loading = false;
             });
         },
         methods: {

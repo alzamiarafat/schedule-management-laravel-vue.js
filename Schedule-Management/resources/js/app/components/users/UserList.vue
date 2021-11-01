@@ -51,13 +51,18 @@
                                             <td v-else class="text-danger">There is no role selected</td>
                                             <td>
                                                 <router-link :to="{name: 'employee.show', params: { id: result.id }}" class="btn btn-info" title="Show" data-toggle="tooltip" data-placement="top"><i class="fa fa-eye" ></i></router-link>
-                                                <router-link :to="{name: 'employee.edit', params: { id: result.id }}" class="btn btn-secondary"  title="Edit" data-toggle="tooltip" data-placement="top"><i class="fa fa-edit"></i></router-link>
+                                                <router-link :to="{name: 'user.edit', params: { id: result.id, user: result }}" class="btn btn-secondary"  title="Edit" data-toggle="tooltip" data-placement="top"><i class="fa fa-edit"></i></router-link>
                                                 <a type="button" v-if="result.status === 0" class="btn btn-success" @click="changeStatus(result.id)" title="Active" data-toggle="tooltip" data-placement="top"><i class="fa fa-check-square"></i></a>
                                                 <a type="button" v-if="result.status === 1" class="btn btn-warning" @click="changeStatus(result.id)" title="Dective" data-toggle="tooltip" data-placement="top"><i class="fa fa-ban"></i></a>
                                             </td>
                                         </tr>
                                     </tbody>
                                 </table>
+                                <!-- <table v-if="loading" class="table table-bordered text-center" width="100%" cellspacing="0">
+                                    <tbody>
+                                        <div class="spinner-border text-info mt-3 mb-3" style="width: 3rem; height: 3rem;" role="status"></div>
+                                    </tbody>
+                                </table> -->
                             </div>
                         </div>
                     </div>

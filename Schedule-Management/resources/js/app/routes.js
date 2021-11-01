@@ -10,6 +10,7 @@ import RoleList from './components/roles/RoleList';
 import RoleCreate from './components/roles/RoleCreate';
 import UserList from './components/users/UserList';
 import UserCreate from './components/users/UserCreate';
+import UserEdit from './components/users/UserEdit';
 import EmployeeList from './components/employees/EmployeeList';
 import EmployeeCreate from './components/employees/EmployeeCreate';
 import EmployeeShow from './components/employees/EmployeeShow';
@@ -64,6 +65,11 @@ export const routes = [
         name: 'user.create',
         path: '/user/create',
         component: UserCreate,
+    },
+    {
+        name: 'user.edit',
+        path: '/user/edit/:id:user',
+        component: UserEdit,
     },
     {
         name: 'employee',
